@@ -1,0 +1,28 @@
+package com.cai.service;
+
+import com.cai.model.TFileInfo;
+
+import java.util.List;
+
+public interface FileInfoService {
+	
+	public int addFileInfo(TFileInfo fileInfo);
+	
+	public List<TFileInfo> selectFileByParams(TFileInfo fileInfo);
+	
+	 /**
+     * 查询
+     *
+     * @param file 查询条件
+     * @return List
+     */
+    List<TFileInfo> selectFileList(TFileInfo file);
+                    
+    
+    /**
+     * 删除
+     * @param tFileInfo
+     * @return
+     */
+    int deleteFile(TFileInfo tFileInfo);
+}

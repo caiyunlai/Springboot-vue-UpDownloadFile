@@ -1,0 +1,80 @@
+# 开发环境配置
+server:
+  # 服务器的HTTP端口，默认为8090
+  port: 8090
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  max-http-header-size: 10240000
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # tomcat最大线程数，默认为200
+    max-threads: 800
+    # Tomcat启动初始化的线程数，默认值25
+    min-spare-threads: 30
+    max-http-header-size: 10240000
+
+
+spring:
+  mvc:
+    hiddenmethod:   #过滤器
+      filter:
+        enabled: true     # 默认为false,在使用@deletemapping时post请求报405错误，改为true
+                    # 不管用，将@DeleteMapping换成@RequestMapping(method=post)
+  servlet:
+    multipart:
+      max-file-size: 5GB    #最大支持文件大小
+      max-request-size: 10GB    #最大支持请求大小
+      enabled: true     #是否支持 multipart 上传文件
+      file-size-threshold: 0    #支持文件写入磁盘
+      resolve-lazily: false  #是否支持 multipart 上传文件时懒加载
+  #数据源配置
+  datasource:
+    # 连接池类型
+    type: com.alibaba.druid.pool.DruidDataSource
+    # mysql数据库驱动
+    driverClassName: com.mysql.cj.jdbc.Driver
+    druid:
+      url: jdbc:mysql://localhost:3306/test ?zeroDateTimeBehavior=convertToNull&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: root
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+       # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      # 配置检测连接是否有效
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: true
+
+# 上传文件存储路径
+prop:
+  upload-folder: D:/files
+
+
+# mybatis配置
+mybatis:
+  # 搜索指定包别名
+  typeAliasesPackage: com.cai.**.model
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mybatis/**/*Mapper.xml
+  # 加载全局的配置文件
+  configLocation: classpath:mybatis/mybatis-config.xml
